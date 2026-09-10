@@ -1,28 +1,28 @@
-# ResumeCraft Pro
+# ResumeCraft
 
-**ResumeCraft Pro** is a premium, client-side resume studio built with plain HTML, CSS and JavaScript.
+A premium, client-side resume builder with multiple templates,
+ATS analysis, job keyword matching and smart writing assistance.
 
-## Included
+## 🚀 Live Demo
 
-- Premium dashboard and multiple-resume management
-- Create, open, duplicate and delete resumes
-- Light / dark application theme
-- Six resume templates: Modern, Minimal, Classic, Executive, Creative, Elegant
-- Template gallery with live switching
-- Accent color and font controls
-- Live A4 preview
-- PDF export with html2canvas + jsPDF
-- Repeatable Experience, Education, Projects and Certifications
-- Project start/end dates
-- Drag-and-drop ordering inside repeatable sections
-- Searchable skill dropdown + custom skills
-- Resume strength / ATS-style score
+[Open ResumeCraft](https://YOUR-USERNAME.github.io/ResumeCraft/)
+
+## ✨ Features
+
+- Premium resume dashboard
+- Multiple resume management
+- Light / dark mode
+- 6 professional templates
+- Live resume preview
+- PDF export
+- ATS-style resume score
 - Job description keyword matching
-- Local smart writing assistance for summary, experience bullets and keyword suggestions
-- Autosave to localStorage
-- Required name/email validation
-- Responsive desktop/mobile interface
-- No backend, database or build step
+- Smart writing assistance
+- Skills search and dropdown
+- Drag-and-drop sections
+- Local autosave
+- Responsive design
+- No backend required
 
 ## Run
 
