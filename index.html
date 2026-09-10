@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>ResumeCraft — Resume Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="brand" id="brandHome" aria-label="ResumeCraft home">
+        <span class="brand-icon">R</span>
+        <span class="brand-copy"><strong>ResumeCraft</strong><small>Resume Studio</small></span>
+      </button>
+      <div class="topbar-right">
+        <span id="globalSave" class="save-pill"><i></i> All changes saved</span>
+        <button class="theme-btn" id="themeToggle" title="Toggle dark/light mode">☾</button>
+        <button class="avatar" id="avatarBtn">RC</button>
+      </div>
+    </header>
+
+    <main id="dashboardView" class="view dashboard-view">
+      <section class="hero">
+        <div>
+          <span class="kicker">YOUR CAREER, BEAUTIFULLY PRESENTED</span>
+          <h1>Build a resume<br><em>worth remembering.</em></h1>
+          <p>Create tailored, ATS-friendly resumes with premium templates, job matching and smart writing assistance.</p>
+        </div>
+        <button id="createResume" class="hero-cta"><span>＋</span> Create new resume</button>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="dashboard-main">
+          <div class="section-bar">
+            <div><h2>My resumes</h2><p id="resumeCount">0 saved resumes</p></div>
+            <div class="search-wrap"><span>⌕</span><input id="resumeSearch" placeholder="Search resumes..." /></div>
+          </div>
+          <div id="resumeCards" class="resume-cards"></div>
+        </div>
+
+        <aside class="insights-card">
+          <div class="insights-head"><span class="sparkle">✦</span><div><strong>Resume insights</strong><small>Across your saved resumes</small></div></div>
+          <div class="insight-score"><span id="dashboardScore">—</span><small>average ATS score</small></div>
+          <div class="mini-bars">
+            <div><span>Content</span><b><i id="barContent"></i></b></div>
+            <div><span>Keywords</span><b><i id="barKeywords"></i></b></div>
+            <div><span>Completeness</span><b><i id="barComplete"></i></b></div>
+          </div>
+          <div class="privacy-note">⌾ <span><strong>Private by design.</strong><br>Your drafts stay in this browser.</span></div>
+        </aside>
+      </section>
+    </main>
+
+    <main id="editorView" class="view editor-view hidden">
+      <div class="editor-top">
+        <div class="editor-title">
+          <button id="backDashboard" class="back-btn">←</button>
+          <div><input id="resumeTitle" class="title-input" value="Untitled Resume"><span id="editorSave">Saved locally</span></div>
+        </div>
+        <div class="editor-actions">
+          <button id="atsBtn" class="outline-btn">◌ ATS score</button>
+          <button id="downloadBtn" class="primary-btn">Download PDF</button>
+        </div>
+      </div>
+
+      <div class="studio">
+        <section class="editor-panel">
+          <div class="editor-tabs">
+            <button class="editor-tab active" data-panel="content">Content</button>
+            <button class="editor-tab" data-panel="design">Design</button>
+            <button class="editor-tab" data-panel="match">Job match</button>
+            <button class="editor-tab" data-panel="assist">Smart assist</button>
+          </div>
+
+          <div id="contentPanel" class="tab-panel active">
+            <form id="resumeForm" novalidate>
+              <div class="form-card">
+                <div class="card-head"><div class="step">01</div><div><h3>Personal information</h3><p>Make it easy to contact you.</p></div></div>
+                <div class="grid two">
+                  <label>Full name *<input id="name" required placeholder="Alex Morgan"></label>
+                  <label>Email *<input id="email" type="email" required placeholder="alex@example.com"></label>
+                  <label>Phone<input id="phone" placeholder="+91 98765 43210"></label>
+                  <label>Location<input id="location" placeholder="Kolkata, India"></label>
+                  <label>LinkedIn<input id="linkedin" placeholder="linkedin.com/in/alexmorgan"></label>
+                  <label>Portfolio<input id="portfolio" placeholder="alexmorgan.dev"></label>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head"><div class="step">02</div><div><h3>Professional summary</h3><p>Position yourself for the role you want.</p></div><button type="button" class="assist-mini" data-assist="summary">✦ Improve</button></div>
+                <textarea id="summary" rows="5" placeholder="Product-minded software engineer with 4+ years of experience..."></textarea>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head split"><div class="card-head-left"><div class="step">03</div><div><h3>Work experience</h3><p>Focus on impact and measurable outcomes.</p></div></div><button type="button" class="soft-btn" id="addExperience">＋ Add role</button></div>
+                <div id="experienceList" class="repeat-list"></div>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head split"><div class="card-head-left"><div class="step">04</div><div><h3>Education</h3><p>Degrees, institutions and dates.</p></div></div><button type="button" class="soft-btn" id="addEducation">＋ Add education</button></div>
+                <div id="educationList" class="repeat-list"></div>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head"><div class="step">05</div><div><h3>Skills</h3><p>Search or choose skills recruiters recognize.</p></div></div>
+                <div class="skill-picker">
+                  <div id="skillTags" class="tags"></div>
+                  <input id="skillSearch" autocomplete="off" placeholder="Search skills...">
+                  <div id="skillDropdown" class="skill-dropdown hidden"></div>
+                </div>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head split"><div class="card-head-left"><div class="step">06</div><div><h3>Projects <small>Optional</small></h3><p>Showcase relevant work.</p></div></div><button type="button" class="soft-btn" id="addProject">＋ Add project</button></div>
+                <div id="projectList" class="repeat-list"></div>
+              </div>
+
+              <div class="form-card">
+                <div class="card-head split"><div class="card-head-left"><div class="step">07</div><div><h3>Certifications <small>Optional</small></h3><p>Credentials relevant to the role.</p></div></div><button type="button" class="soft-btn" id="addCertification">＋ Add certification</button></div>
+                <div id="certificationList" class="repeat-list"></div>
+              </div>
+            </form>
+          </div>
+
+          <div id="designPanel" class="tab-panel">
+            <div class="panel-intro"><span class="kicker">DESIGN SYSTEM</span><h2>Choose your visual identity</h2><p>Switch templates without losing your content.</p></div>
+            <div id="templateGallery" class="template-gallery"></div>
+            <div class="design-controls">
+              <label>Accent color<select id="accentSelect"><option value="#635bff">Indigo</option><option value="#0f766e">Teal</option><option value="#b45309">Amber</option><option value="#be123c">Rose</option><option value="#334155">Slate</option><option value="#166534">Forest</option></select></label>
+              <label>Font<select id="fontSelect"><option value="DM Sans">DM Sans</option><option value="Manrope">Manrope</option><option value="Georgia">Georgia</option></select></label>
+            </div>
+          </div>
+
+          <div id="matchPanel" class="tab-panel">
+            <div class="panel-intro"><span class="kicker">CAREER MATCH</span><h2>Match your resume to a job</h2><p>Paste a job description and ResumeCraft will find useful keyword gaps locally in your browser.</p></div>
+            <textarea id="jobDescription" class="job-box" rows="13" placeholder="Paste the full job description here..."></textarea>
+            <div class="match-actions"><button id="analyzeJob" class="primary-btn">Analyze match</button><span id="matchStatus"></span></div>
+            <div id="matchResults" class="match-results hidden"></div>
+          </div>
+
+          <div id="assistPanel" class="tab-panel">
+            <div class="panel-intro"><span class="kicker">SMART ASSIST</span><h2>Polish your writing</h2><p>Browser-only smart assistance turns rough notes into stronger, resume-ready language. No API key or server required.</p></div>
+            <div class="assist-grid">
+              <div class="assist-card"><span>✦</span><h3>Improve summary</h3><p>Turn a rough summary into concise professional positioning.</p><button class="outline-btn assist-action" data-assist="summary">Improve summary</button></div>
+              <div class="assist-card"><span>↗</span><h3>Strengthen bullets</h3><p>Find weak action words and add an impact-oriented structure.</p><button class="outline-btn assist-action" data-assist="bullets">Improve experience bullets</button></div>
+              <div class="assist-card"><span>⌁</span><h3>Use job keywords</h3><p>Blend missing job-description keywords into relevant content.</p><button class="outline-btn assist-action" data-assist="keywords">Suggest keyword edits</button></div>
+            </div>
+            <div id="assistOutput" class="assist-output hidden"></div>
+          </div>
+        </section>
+
+        <aside class="preview-panel">
+          <div class="preview-header"><div><span class="live-dot"></span><strong>Live preview</strong></div><div class="preview-tools"><button id="zoomOut">−</button><span id="zoomValue">70%</span><button id="zoomIn">＋</button></div></div>
+          <div class="preview-stage"><article id="resumePreview" class="resume-paper template-modern"></article></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden"><div class="modal-backdrop"></div><div class="modal-card"><button id="closeModal" class="modal-close">×</button><div id="modalContent"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
