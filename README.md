@@ -5,7 +5,7 @@ ATS analysis, job keyword matching and smart writing assistance.
 
 ## 🚀 Live Demo
 
-[Open ResumeCraft](https://YOUR-USERNAME.github.io/ResumeCraft/)
+[Open ResumeCraft](https://moumitadeb-23.github.io/ResumeCraft/)
 
 ## ✨ Features
 
